@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A little gift from this gentlement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#12061c; --plum:#2a0b33; --rose:#ff4d8d; --blush:#ffb3cf; --champagne:#f6e7d0; --ivory:#fffaf3;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --script:'Great Vibes','Snell Roundhand','Brush Script MT',cursive;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:radial-gradient(120% 90% at 50% 0%,var(--plum),var(--night) 70%) fixed;
+  color:var(--ivory);font-family:var(--serif);overflow-x:hidden;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+section,main{position:relative;z-index:1}
+
+/* ---------- Gift screen ---------- */
+#gift{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  padding:clamp(40px,9vh,90px) 24px clamp(40px,10vh,90px);transition:opacity 1s ease,transform 1s ease}
+#gift.gone{opacity:0;transform:scale(1.08);pointer-events:none}
+.song{font-style:italic;font-weight:500;font-size:clamp(2.2rem,8vw,4.2rem);letter-spacing:.02em;color:var(--champagne);
+  text-align:center;text-shadow:0 0 28px rgba(255,179,207,.35)}
+.hint{font-size:1.15rem;color:var(--blush);opacity:.8;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+
+.giftbtn{background:none;border:0;cursor:pointer;padding:60px 50px;border-radius:50%;-webkit-tap-highlight-color:transparent}
+.giftbtn:focus-visible{outline:2px solid var(--blush);outline-offset:6px}
+.scene{perspective:900px;width:156px;height:156px}
+.box{position:relative;width:140px;height:140px;margin:10px;transform-style:preserve-3d;
+  transform:rotateX(-24deg) rotateY(-30deg);animation:sway 5s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotateX(-24deg) rotateY(-36deg) translateY(0)}50%{transform:rotateX(-24deg) rotateY(-24deg) translateY(-8px)}}
+.giftbtn:hover .box{filter:drop-shadow(0 0 22px rgba(255,77,141,.6))}
+.f{position:absolute;backface-visibility:hidden}
+.body .f{left:0;top:40px;width:140px;height:100px;
+  background:linear-gradient(90deg,transparent 41%,var(--champagne) 41% 59%,transparent 59%),linear-gradient(160deg,#ff6fa3,#d92a6c)}
+.body .fr{transform:translateZ(70px)}
+.body .bk{transform:rotateY(180deg) translateZ(70px)}
+.body .lf{transform:rotateY(-90deg) translateZ(70px);filter:brightness(.8)}
+.body .rt{transform:rotateY(90deg) translateZ(70px);filter:brightness(.9)}
+.body .bt{top:20px;height:140px;transform:rotateX(90deg) translateZ(-50px);background:#8e1b4a}
+.body .in{top:20px;height:140px;transform:rotateX(90deg) translateZ(48px);background:radial-gradient(circle,#fff6d6,#ff9ec2 60%,#a3225a)}
+.lid{position:absolute;left:-8px;top:-53px;width:156px;height:156px;transform-style:preserve-3d;
+  transition:transform 1s cubic-bezier(.3,1.4,.5,1),opacity 1.1s ease}
+.lid .f{left:0;top:63px;width:156px;height:30px;
+  background:linear-gradient(90deg,transparent 43%,var(--champagne) 43% 57%,transparent 57%),linear-gradient(160deg,#ff82b0,#e53578)}
+.lid .fr{transform:translateZ(78px)} .lid .bk{transform:rotateY(180deg) translateZ(78px)}
+.lid .lf{transform:rotateY(-90deg) translateZ(78px);filter:brightness(.8)}
+.lid .rt{transform:rotateY(90deg) translateZ(78px);filter:brightness(.9)}
+.lid .tp{top:0;height:156px;transform:rotateX(90deg) translateZ(78px);backface-visibility:visible;
+  background:linear-gradient(90deg,transparent 43%,var(--champagne) 43% 57%,transparent 57%),
+  linear-gradient(0deg,transparent 43%,var(--champagne) 43% 57%,transparent 57%),linear-gradient(160deg,#ff93bb,#ef4a86)}
+.bow{position:absolute;left:62px;top:36px;width:32px;height:26px}
+.bow i{position:absolute;top:0;width:30px;height:22px;border:6px solid var(--champagne);border-radius:50%}
+.bow i:first-child{left:-22px;transform:rotate(-24deg)} .bow i:last-child{left:24px;transform:rotate(24deg)}
+.bow b{position:absolute;left:8px;top:12px;width:16px;height:14px;background:var(--champagne);border-radius:4px}
+.box.open .lid{transform:translateY(-120px) rotateZ(-22deg) rotateX(14deg);opacity:0}
+.glow{position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;opacity:0;pointer-events:none;
+  background:radial-gradient(circle,#fff,rgba(255,150,190,.8) 40%,transparent 70%);transform:translate(-50%,-50%)}
+.box.open + .glow{animation:flash 1.4s ease-out forwards}
+@keyframes flash{20%{opacity:1}100%{opacity:0;width:900px;height:900px}}
+
+/* ---------- Main screen ---------- */
+main{min-height:100%;display:none;flex-direction:column;align-items:center;padding:clamp(36px,8vh,80px) 20px 60px;gap:clamp(28px,6vh,56px)}
+main.show{display:flex;animation:in 1.6s ease both}
+@keyframes in{from{opacity:0}to{opacity:1}}
+.namebar{display:flex;align-items:center;gap:10px;max-width:100%}
+#name{font-family:var(--script);font-weight:400;font-size:clamp(3.2rem,15vw,7.5rem);line-height:1.15;text-align:center;
+  color:#fff;overflow-wrap:anywhere;
+  text-shadow:0 0 6px #fff,0 0 14px var(--rose),0 0 32px var(--rose),0 0 64px #ff1f75;animation:neon 4s ease-in-out infinite}
+@keyframes neon{50%{text-shadow:0 0 4px #fff,0 0 10px var(--rose),0 0 24px var(--rose),0 0 44px #ff1f75}}
+.iconbtn{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,179,207,.35);background:rgba(255,255,255,.05);
+  color:var(--blush);cursor:pointer;display:grid;place-items:center;opacity:.55;transition:opacity .2s,background .2s}
+.iconbtn:hover,.iconbtn:focus-visible{opacity:1;background:rgba(255,77,141,.2);outline:none}
+.iconbtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.letter{width:min(100%,680px);background:rgba(255,250,243,.06);border:1px solid rgba(255,179,207,.22);border-radius:18px;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.letter header{display:flex;align-items:center;gap:10px;padding:14px 22px;border-bottom:1px solid rgba(255,179,207,.15);
+  color:var(--blush);font-size:1.15rem;font-style:italic}
+.letter header svg{width:15px;height:15px;fill:var(--rose)}
+#text{white-space:pre-wrap;padding:26px clamp(20px,5vw,40px) 34px;font-size:clamp(1.25rem,3.6vw,1.55rem);line-height:1.7;
+  color:var(--ivory);min-height:20em;max-width:60ch;margin:0 auto}
+.caret{display:inline-block;width:2px;height:1.1em;margin-left:2px;vertical-align:text-bottom;background:var(--rose);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.tools{position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));z-index:2;display:none;gap:8px}
+.tools.show{display:flex}
+@media (prefers-reduced-motion:reduce){.box,#name,.hint{animation:none}}
+.tapmusic{display:none;position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:5;
+  font:inherit;font-size:1.15rem;font-style:italic;color:var(--ivory);padding:10px 22px;border-radius:999px;cursor:pointer;
+  background:rgba(255,77,141,.28);border:1px solid var(--blush);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  box-shadow:0 0 24px rgba(255,77,141,.45)}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<section id="gift">
+  <h1 class="song">For my Darling</h1>
+  <div style="position:relative">
+    <button class="giftbtn" id="giftBtn" aria-label="Open your gift">
+      <div class="scene"><div class="box" id="box">
+        <div class="body"><div class="f in"></div><div class="f bt"></div><div class="f bk"></div><div class="f lf"></div><div class="f rt"></div><div class="f fr"></div></div>
+        <div class="lid"><div class="f bk"></div><div class="f lf"></div><div class="f rt"></div><div class="f fr"></div><div class="f tp"></div>
+          <div class="bow"><i></i><i></i><b></b></div></div>
+      </div><div class="glow"></div></div>
+    </button>
+  </div>
+  <p class="hint">Tap the gift to open it</p>
+</section>
+
+<main id="main">
+  <div class="namebar">
+    <h2 id="name">My Love</h2>
+  </div>
+  <article class="letter">
+    <header><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 5.700-8 11-8 11Z"/></svg>love_letter</header>
+    <div id="text" aria-live="off"></div>
+  </article>
+</main>
+
+<div class="tools" id="tools">
+  <button class="iconbtn" id="replayBtn" aria-label="Replay letter" title="Replay letter" style="opacity:.8">
+    <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+  </button>
+</div>
+
+<script>
+/* ======== Customize here ======== */
+const NAME = "Kim";          // her name (change it here)
+const MUSIC_FILE = "song.mp3";   // your downloaded mp3, saved in the SAME folder as this file (no spaces in the name)
+const VOLUME_BOOST = 1;          // 1 = normal. Try 1.5 or 2 for louder (only works when hosted on https / localhost)
+const FROM = "Nha";        // signature at the end of the letter (put your name)
+const LETTER = (name) => `My dearest ${name},
+
+From the moment you walked into my life, every ordinary day began to feel like something worth keeping. Your laugh is my favorite sound, and your smile is the place I always want to come home to.
+
+I don't need a perfect day. I only need you beside me, in the quiet moments and the loud ones, in the easy times and the hard ones.
+
+Thank you for believing in me, for being patient with me, and for loving me exactly as I am. I promise to choose you again and again, every single day.
+
+You are beautiful in every way, and I am the luckiest person alive to love you.
+
+Forever yours,
+${FROM}`;
+/* ================================ */
+
+const $ = id => document.getElementById(id);
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- Name ---------- */
+const name = NAME;
+$('name').textContent = name;
+
+/* ---------- Typewriter ---------- */
+let typeToken = 0;
+async function type() {
+  const my = ++typeToken, el = $('text'), full = LETTER(name);
+  el.textContent = '';
+  const caret = document.createElement('span'); caret.className = 'caret';
+  const node = document.createTextNode(''); el.append(node, caret);
+  for (let i = 0; i < full.length; i++) {
+    if (my !== typeToken) return;
+    node.data += full[i];
+    const ch = full[i];
+    const d = reduce ? 4 : ch === '\n' ? 320 : /[.!?]/.test(ch) ? 380 : /[,;]/.test(ch) ? 190 : 34 + Math.random() * 30;
+    await new Promise(r => setTimeout(r, d));
+  }
+}
+$('replayBtn').onclick = type;
+
+/* ---------- Floating glowing hearts ---------- */
+const cv = $('bg'), c = cv.getContext('2d');
+let W, H, dpr, running = false, bx = 0, by = 0;
+const hearts = [];
+function resize() {
+  dpr = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight;
+  cv.width = W * dpr; cv.height = H * dpr; c.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+addEventListener('resize', resize); resize();
+function spawn(burst) {
+  const s = 8 + Math.random() * 24;
+  hearts.push({
+    x: burst ? bx : Math.random() * W, y: burst ? by : H + s,
+    s, v: .4 + Math.random() * 1.1, ph: Math.random() * 6.28, a: .3 + Math.random() * .6,
+    h: 328 + Math.random() * 30, vx: burst ? (Math.random() - .5) * 12 : 0, vy: burst ? -Math.random() * 10 - 2 : 0, t: 0
+  });
+}
+function heart(x, y, s) {
+  c.beginPath(); c.moveTo(x, y + s * .35);
+  c.bezierCurveTo(x - s * .75, y - s * .1, x - s * .45, y - s * .8, x, y - s * .35);
+  c.bezierCurveTo(x + s * .45, y - s * .8, x + s * .75, y - s * .1, x, y + s * .35);
+  c.fill();
+}
+const MAX = reduce ? 25 : (W < 600 ? 40 : 70);
+function frame() {
+  c.clearRect(0, 0, W, H);
+  if (hearts.length < MAX && Math.random() < .14) spawn(false);
+  for (let i = hearts.length - 1; i >= 0; i--) {
+    const p = hearts[i];
+    p.vx *= .95; p.vy *= .95; p.t++;
+    p.y += -p.v + p.vy; p.x += p.vx + Math.sin(p.t * .02 + p.ph) * .45;
+    if (p.y < -40) { hearts.splice(i, 1); continue; }
+    c.globalAlpha = p.a * Math.min(1, Math.max(0, p.y / (H * .3)));
+    c.fillStyle = `hsl(${p.h},100%,68%)`; c.shadowColor = `hsl(${p.h},100%,60%)`; c.shadowBlur = p.s * .9;
+    heart(p.x, p.y, p.s);
+  }
+  c.globalAlpha = 1; c.shadowBlur = 0;
+  requestAnimationFrame(frame);
+}
+
+/* ---------- Web Audio: soft original lullaby-style melody ---------- */
+let ac, master, nextBar = 0, timer;
+const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+const BEAT = 60 / 68;
+const BARS = [ // G  D  Em  C
+  { bass: 43, arp: [55, 59, 62, 67], mel: [[74, 0, 2], [71, 2, 1], [74, 3, 1]] },
+  { bass: 38, arp: [57, 62, 66, 69], mel: [[69, 0, 2], [74, 2, 2]] },
+  { bass: 40, arp: [55, 59, 64, 67], mel: [[71, 0, 1.5], [67, 1.5, 1], [71, 2.5, 1.5]] },
+  { bass: 36, arp: [55, 60, 64, 67], mel: [[72, 0, 2], [67, 2, 2]] }
+];
+function note(m, t, dur, type, vol) {
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = type; o.frequency.value = mtof(m);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(vol, t + .03);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + .05);
+}
+function schedule() {
+  while (nextBar < ac.currentTime + 2.5) {
+    const bar = BARS[barIdx++ % 4];
+    note(bar.bass, nextBar, BEAT * 4, 'sine', .22);
+    const order = [0, 1, 2, 3, 2, 1, 2, 3];
+    order.forEach((n, i) => note(bar.arp[n], nextBar + i * BEAT / 2, BEAT * 1.6, 'triangle', .07));
+    bar.mel.forEach(([m, s, d]) => note(m, nextBar + s * BEAT, d * BEAT * .95, 'sine', .11));
+    nextBar += BEAT * 4;
+  }
+}
+let barIdx = 0;
+function startMusic() {
+  try {
+    ac = new (window.AudioContext || window.webkitAudioContext)();
+    master = ac.createGain(); master.gain.value = 0;
+    const delay = ac.createDelay(1), fb = ac.createGain(), lp = ac.createBiquadFilter();
+    delay.delayTime.value = BEAT * .75; fb.gain.value = .4; lp.type = 'lowpass'; lp.frequency.value = 2200;
+    master.connect(ac.destination); master.connect(delay); delay.connect(lp); lp.connect(fb); fb.connect(delay); lp.connect(ac.destination);
+    master.gain.linearRampToValueAtTime(.8, ac.currentTime + 3);
+    nextBar = ac.currentTime + .1; schedule(); timer = setInterval(schedule, 500);
+  } catch (e) { /* audio unavailable: the page still works silently */ }
+}
+document.addEventListener('visibilitychange', () => { if (ac) document.hidden ? ac.suspend() : ac.resume(); });
+
+
+/* ---------- MP3 music (starts when she taps the gift) ---------- */
+const music = new Audio(MUSIC_FILE);
+music.loop = true; music.preload = 'auto'; music.volume = 1;
+let boostCtx = null, musicOK = true;
+
+const tapBtn = document.createElement('button');
+tapBtn.className = 'tapmusic'; tapBtn.textContent = '\u266A Tap to play our song'; document.body.appendChild(tapBtn);
+
+function setupBoost() { // optional extra loudness through Web Audio (needs http/https, not file://)
+  if (boostCtx || VOLUME_BOOST <= 1 || !/^https?:/.test(location.protocol)) return;
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const src = ctx.createMediaElementSource(music), gain = ctx.createGain(), lim = ctx.createDynamicsCompressor();
+    gain.gain.value = VOLUME_BOOST;
+    src.connect(gain); gain.connect(lim); lim.connect(ctx.destination); boostCtx = ctx;
+  } catch (e) { console.warn('Volume boost unavailable', e); }
+}
+function playMusic() {
+  setupBoost();
+  if (boostCtx && boostCtx.state === 'suspended') boostCtx.resume();
+  const p = music.play();
+  if (p && p.catch) p.catch(() => { tapBtn.style.display = 'block'; });
+}
+music.addEventListener('playing', () => { tapBtn.style.display = 'none'; });
+music.addEventListener('error', () => { musicOK = false; console.warn('Could not load ' + MUSIC_FILE + ' - using the built-in melody'); });
+tapBtn.onclick = () => { musicOK ? playMusic() : startMusic(); tapBtn.style.display = 'none'; };
+function startAudio() { musicOK ? playMusic() : startMusic(); }
+
+/* ---------- Open the gift ---------- */
+let opened = false;
+$('giftBtn').onclick = () => {
+  if (opened) return; opened = true;
+  const safe = fn => { try { fn(); } catch (e) { console.error(e); } };
+  safe(() => { $('box').classList.add('open'); $('box').style.animationPlayState = 'paused'; });
+  safe(() => { const r = $('box').getBoundingClientRect(); bx = r.left + r.width / 2; by = r.top + r.height / 2; });
+  safe(startAudio);                       // must run inside the tap, so it goes first
+  safe(() => { if (!running) { running = true; requestAnimationFrame(frame); } });
+  safe(() => { for (let i = 0; i < 36; i++) setTimeout(() => spawn(true), i * 25); });
+  setTimeout(() => $('gift').classList.add('gone'), 1500);
+  setTimeout(() => {
+    $('gift').style.display = 'none';
+    $('main').classList.add('show'); $('tools').classList.add('show');
+    setTimeout(type, 1200);
+  }, 2500);
+  // if nothing is audible after a few seconds, offer one more tap
+  setTimeout(() => {
+    const playing = (musicOK && !music.paused) || (ac && ac.state === 'running');
+    if (!playing) tapBtn.style.display = 'block';
+  }, 3200);
+};
+</script>
+</body>
+</html>
