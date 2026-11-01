@@ -105,12 +105,36 @@ main.show{display:flex;animation:in 1.6s ease both}
 
 <section id="gift">
   <h1 class="song">For my Darling</h1>
-  <div style="position:relative">
+ <div style="position:relative">
     <button class="giftbtn" id="giftBtn" aria-label="Open your gift">
       <div class="scene"><div class="box" id="box">
-        <div class="body"><div class="f in"></div><div class="f bt"></div><div class="f bk"></div><div class="f lf"></div><div class="f rt"></div><div class="f fr"></div></div>
-        <div class="lid"><div class="f bk"></div><div class="f lf"></div><div class="f rt"></div><div class="f fr"></div><div class="f tp"></div>
-          <div class="bow"><i></i><i></i><b></b></div></div>
+        <svg viewBox="0 0 240 240" aria-hidden="true">
+          <defs>
+            <linearGradient id="gBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7aac"/><stop offset="1" stop-color="#c91f5f"/></linearGradient>
+            <linearGradient id="gLid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffa6c8"/><stop offset="1" stop-color="#ec4a88"/></linearGradient>
+            <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e9cfa6"/><stop offset=".5" stop-color="#fff6e3"/><stop offset="1" stop-color="#e2c493"/></linearGradient>
+            <linearGradient id="gShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+            <linearGradient id="gBeam" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff2c9" stop-opacity=".85"/><stop offset="1" stop-color="#ff9ec2" stop-opacity="0"/></linearGradient>
+            <radialGradient id="gInner"><stop offset="0" stop-color="#fffbe6"/><stop offset=".55" stop-color="#ffb3cf"/><stop offset="1" stop-color="#ff4d8d" stop-opacity="0"/></radialGradient>
+          </defs>
+          <ellipse cx="120" cy="226" rx="82" ry="9" fill="#000" opacity=".35"/>
+          <rect x="46" y="108" width="148" height="112" rx="9" fill="url(#gBody)"/>
+          <rect x="46" y="108" width="26" height="112" rx="9" fill="#fff" opacity=".12"/>
+          <rect x="168" y="108" width="26" height="112" rx="9" fill="#000" opacity=".16"/>
+          <rect x="106" y="108" width="28" height="112" fill="url(#gGold)"/>
+          <rect x="46" y="112" width="148" height="22" fill="url(#gShade)"/>
+          <ellipse id="inner" cx="120" cy="108" rx="78" ry="13" fill="url(#gInner)"/>
+          <g id="lid">
+            <rect x="34" y="72" width="172" height="40" rx="9" fill="url(#gLid)"/>
+            <rect x="34" y="72" width="172" height="8" rx="4" fill="#fff" opacity=".28"/>
+            <rect x="106" y="72" width="28" height="40" fill="url(#gGold)"/>
+            <path d="M118 74 L96 104 L110 100 L122 80Z" fill="#e2c493"/>
+            <path d="M122 74 L144 104 L130 100 L118 80Z" fill="#d9b985"/>
+            <path d="M120 72 C88 24 46 48 76 70 C92 80 108 76 120 72Z" fill="url(#gGold)" stroke="#d2b07a" stroke-width="1.5"/>
+            <path d="M120 72 C152 24 194 48 164 70 C148 80 132 76 120 72Z" fill="url(#gGold)" stroke="#d2b07a" stroke-width="1.5"/>
+            <ellipse cx="120" cy="72" rx="12" ry="10" fill="#fff6e3" stroke="#d2b07a" stroke-width="1.5"/>
+          </g>
+        </svg>
       </div><div class="glow"></div></div>
     </button>
   </div>
